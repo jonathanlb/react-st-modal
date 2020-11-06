@@ -32,43 +32,43 @@ function createConfirmationDialog(trigger: Trigger) {
 }
 
 describe('Demonstrate Confirm dialog features', () => {
-test('executes confirm', async () => {
-    const trigger = { isOk: 0 };
-    render(createConfirmationDialog(trigger));
+    test('executes confirm', async () => {
+        const trigger = { isOk: 0 };
+        render(createConfirmationDialog(trigger));
 
-    expect(trigger.isOk).toBe(0);
-    expect(screen.queryByRole('dialog')).toBeNull(); // getByRole throws error expect cannot catch
+        expect(trigger.isOk).toBe(0);
+        expect(screen.queryByRole('dialog')).toBeNull(); // getByRole throws error expect cannot catch
 
-    await waitFor(() => fireEvent.click(screen.getByText('Show confirm')));
-    expect(trigger.isOk).toBe(0);
+        await waitFor(() => fireEvent.click(screen.getByText('Show confirm')));
+        expect(trigger.isOk).toBe(0);
 
-    const dialog = await waitFor(() => screen.getByRole('dialog'));
-    expect(trigger.isOk).toBe(0);
-   
-    const okButton = screen.getByText('Ok');
-    expect(okButton).toHaveClass('--primary');
-    await waitFor(() => fireEvent.click(okButton));
-    expect(trigger.isOk).toBe(1);
+        const dialog = await waitFor(() => screen.getByRole('dialog'));
+        expect(trigger.isOk).toBe(0);
 
-    expect(screen.queryByRole('dialog')).toHaveClass('modalHidden');
-});
+        const okButton = screen.getByText('Ok');
+        expect(okButton).toHaveClass('--primary');
+        await waitFor(() => fireEvent.click(okButton));
+        expect(trigger.isOk).toBe(1);
 
-test('executes cancel', async () => {
-    const trigger = { isOk: 0 };
-    render(createConfirmationDialog(trigger));
+        expect(screen.queryByRole('dialog')).toHaveClass('modalHidden');
+    });
 
-    expect(trigger.isOk).toBe(0);
-    expect(screen.queryByRole('dialog')).toBeNull(); // getByRole throws error expect cannot catch
+    test('executes cancel', async () => {
+        const trigger = { isOk: 0 };
+        render(createConfirmationDialog(trigger));
 
-    await waitFor(() => fireEvent.click(screen.getByText('Show confirm')));
-    expect(trigger.isOk).toBe(0);
+        expect(trigger.isOk).toBe(0);
+        expect(screen.queryByRole('dialog')).toBeNull(); // getByRole throws error expect cannot catch
 
-    const dialog = await waitFor(() => screen.getByRole('dialog'));
-    expect(trigger.isOk).toBe(0);
-   
-    const cancelButton = screen.getByText('Cancel');
-    expect(cancelButton).toHaveClass('--light');
-    await waitFor(() => fireEvent.click(cancelButton));
-    expect(trigger.isOk).toBe(-1);
-});
+        await waitFor(() => fireEvent.click(screen.getByText('Show confirm')));
+        expect(trigger.isOk).toBe(0);
+
+        const dialog = await waitFor(() => screen.getByRole('dialog'));
+        expect(trigger.isOk).toBe(0);
+
+        const cancelButton = screen.getByText('Cancel');
+        expect(cancelButton).toHaveClass('--light');
+        await waitFor(() => fireEvent.click(cancelButton));
+        expect(trigger.isOk).toBe(-1);
+    });
 });
