@@ -121,7 +121,7 @@ function CustomDialogContent() {
   // use this hook to control the dialog
   const dialog = useDialog();
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<string>();
 
   return (
     <div>
